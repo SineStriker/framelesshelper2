@@ -116,6 +116,10 @@ enum class ExtraDataType : quint8
     FramelessQuickHelper
 };
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+FRAMELESSHELPER_CORE_API uint qHash(ExtraDataType key, uint seed = 0) noexcept;
+#endif
+
 struct FRAMELESSHELPER_CORE_API FramelessExtraData
 {
     FramelessExtraData();

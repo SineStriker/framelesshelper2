@@ -26,6 +26,7 @@
 #include "framelesshelpercore_global_p.h"
 #include "versionnumber_p.h"
 #include "utils.h"
+#include <QtCore/qhashfunctions.h>
 #include <QtCore/qiodevice.h>
 #include <QtCore/qcoreapplication.h>
 #include <QtCore/qloggingcategory.h>
@@ -122,6 +123,12 @@ FramelessCallbacksPtr FramelessCallbacks::create()
 {
     return std::make_shared<FramelessCallbacks>();
 }
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+uint qHash(ExtraDataType key, uint seed) noexcept {
+    return ::qHash(static_cast<quint8>(key), seed);
+}
+#endif
 
 FramelessExtraData::FramelessExtraData() = default;
 
